@@ -1,0 +1,20 @@
+version: '3'
+services:
+  api:
+    build: .
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=strm_proxy"
+      - "traefik.http.routers.strm.entrypoints=websecure"
+      - "traefik.http.routers.strm.rule=Host(`strm.ftp.sh`)"
+      - "traefik.http.routers.strm.tls=true"
+      - "traefik.http.routers.strm.tls.certresolver=letsencrypt"
+      - "traefik.http.services.strm.loadbalancer.server.port=8000"
+    networks:
+      - internal
+      - strm_proxy
+
+networks:
+  internal: {}
+  strm_proxy:
+    external: true
