@@ -68,4 +68,3 @@ async def get_stream(id: str):
             print(f'Client disconnected: {id}')
             clients.remove(client)
     return StreamingResponse(generate(), media_type='multipart/x-mixed-replace;boundary=frame')
-        
